@@ -1,91 +1,68 @@
 import "./scss/styles.scss";
 import $ from "jquery";
-const modules = import.meta.glob("./pages/*.js", { eager: true });
 
-const routeList = Object.values(modules).map((mod) => {
-  const meta = mod.meta ?? {};
-  const id = meta.id;
-  return {
-    id,
-    label: meta.label ?? meta.id,
-    order: meta.order ?? 9999,
-    parent: meta.parent ?? null,
-    render: mod.render,
-    init: mod.init,
-  };
-});
+// Import your pages
+import * as Home from "./pages/home.js";
+import * as Profile from "./pages/profile.js";
+import * as Saved from "./pages/saved.js";
+import * as Search from "./pages/search.js";
 
-routeList.sort((a, b) => a.order - b.order);
+const routes = {
+  home: Home,
+  profile: Profile,
+  saved: Saved,
+  search: Search,
+};
 
-// Convert list → lookup map for fast routing
-const routes = {};
-routeList.forEach((r) => {
-  routes[r.id] = r;
-});
+// Main jQuery router
+function changeRoute(routeName) {
+  const page = routes[routeName];
 
-// 5) Build a parent → children map for nav
-const childrenByParent = {};
-routeList.forEach((route) => {
-  if (!route.parent) return; // top-level, no parent
-  if (!childrenByParent[route.parent]) {
-    childrenByParent[route.parent] = [];
+  if (!page || !page.render) {
+    $("#app").html("<h1>404 — Page Not Found</h1>");
+    return;
   }
-  childrenByParent[route.parent].push(route);
-});
 
-function buildNav() {
-  const $nav = $("nav"); // assume <nav></nav> in index.html
+  // Insert that page's HTML
+  $("#app").html(page.render());
 
-  const topLevel = routeList.filter((r) => !r.parent);
-
-  const html = topLevel
-    .map((route) => {
-      const children = childrenByParent[route.id] || [];
-
-      if (children.length === 0) {
-        // simple top-level link
-        return `<a href="#${route.id}" class="nav-link">${route.label}</a>`;
-      }
-
-      // parent with submenu
-      const submenuLinks = children
-        .map(
-          (child) =>
-            `<a href="#${child.id}" class="submenu-link">${child.label}</a>`
-        )
-        .join("");
-
-      return `
-        <div class="nav-item has-children">
-          <a href="#${route.id}" class="nav-link parent-link">${route.label}</a>
-          <div class="submenu">
-            ${submenuLinks}
-          </div>
-        </div>
-      `;
-    })
-    .join("");
-
-  $nav.html(html);
-}
-
-function changeRoute() {
-  let pageID = window.location.hash.replace("#", "") || "home";
-
-  const route = routes[pageID] || routes.home;
-  $("#app").html(route.render());
-
-  if (typeof route.init === "function") {
-    route.init();
+  // Run init if it exists
+  if (typeof page.init === "function") {
+    page.init();
   }
-}
 
-function initURLListener() {
-  $(window).on("hashchange", changeRoute);
-  changeRoute();
+  // Optional: update hash without reloading
+  window.location.hash = routeName;
 }
 
 $(document).ready(function () {
-  buildNav();
-  initURLListener();
+  // NAV CLICK HANDLER — VERY IMPORTANT
+  $("nav").on("click", "a[data-route]", function (e) {
+    e.preventDefault(); // stop page reload
+    const route = $(this).data("route");
+    changeRoute(route);
+  });
+
+  // Load default route on page load
+  changeRoute("home");
+});
+
+// Make it global if you still want manual calls
+window.changeRoute = changeRoute;
+
+// Toggle mobile nav
+$("#navToggle").on("click", function (e) {
+  e.preventDefault();
+  $("#top-nav-links").slideToggle();
+});
+
+// Handle routing for nav items
+$(".top-nav").on("click", "a[data-route]", function (e) {
+  e.preventDefault();
+
+  const route = $(this).data("route");
+  changeRoute(route);
+
+  // optional: close the menu after clicking a link
+  $("#top-nav-links").slideUp();
 });

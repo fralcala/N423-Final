@@ -1,14 +1,14 @@
 import $ from "jquery";
 
 export function render() {
-  return `<h1>Welcome to the Home Page</h1>
+  return `<h1>Welcome to the Account Page</h1>
 <div id="clickMe" class="btn">Click Me</div>`;
 }
 
 export function init() {
-  console.log("home function called");
+  console.log("account function called");
 
   $("#clickMe").on("click", function () {
-    alert("You clicked the button on the Home Page!");
+    alert("You clicked the button on the Account Page!");
   });
 }

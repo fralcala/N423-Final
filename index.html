@@ -14,23 +14,54 @@
     />
   </head>
   <body>
-    <header>Recipe App</header>
-    <nav>
+    <header class="mobile-nav-header">Recipe App</header>
+
+    <nav class="top-nav">
+      <header class="top-nav-header">Recipe App</header>
+      <div class="links-container">
+        <ul id="top-nav-links">
+          <li>
+            <a href="#" data-route="home">Home</a>
+          </li>
+          <li>
+            <a href="#" data-route="search">Search</a>
+          </li>
+          <li>
+            <a href="#" data-route="saved">Saved</a>
+          </li>
+          <li>
+            <a href="#" data-route="profile">Profile</a>
+          </li>
+        </ul>
+      </div>
+      <a href="#" class="icon" id="navToggle">
+        <i class="fa fa-bars"></i>
+      </a>
+    </nav>
+
+    <nav class="mobile-nav">
       <ul>
         <li>
-          <a href="#home"><i class="fa-regular fa-house"></i></a>
+          <a href="#" data-route="home"><i class="fa-regular fa-house"></i></a>
         </li>
         <li>
-          <a href="#search"><i class="fa-solid fa-magnifying-glass"></i></a>
+          <a href="#" data-route="search"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></a>
         </li>
         <li>
-          <a href="#saved"><i class="fa-regular fa-bookmark"></i></a>
+          <a href="#" data-route="saved"
+            ><i class="fa-regular fa-bookmark"></i
+          ></a>
         </li>
         <li>
-          <a href="#profile"><i class="fa-regular fa-user"></i></a>
+          <a href="#" data-route="profile"
+            ><i class="fa-regular fa-user"></i
+          ></a>
         </li>
       </ul>
     </nav>
+
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
