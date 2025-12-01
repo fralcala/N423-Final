@@ -1,7 +1,6 @@
 import "./scss/styles.scss";
 import $ from "jquery";
 
-// Import your pages
 import * as Home from "./pages/home.js";
 import * as Profile from "./pages/profile.js";
 import * as Saved from "./pages/saved.js";
@@ -14,7 +13,8 @@ const routes = {
   search: Search,
 };
 
-// Main jQuery router
+// //
+// router
 function changeRoute(routeName) {
   const page = routes[routeName];
 
@@ -47,13 +47,13 @@ $(document).ready(function () {
   changeRoute("home");
 });
 
-// Make it global if you still want manual calls
 window.changeRoute = changeRoute;
 
-// Toggle mobile nav
+// //
+// Toggle top nav
 $("#navToggle").on("click", function (e) {
   e.preventDefault();
-  $("#top-nav-links").slideToggle();
+  $(".links-container").slideToggle();
 });
 
 // Handle routing for nav items
@@ -64,5 +64,5 @@ $(".top-nav").on("click", "a[data-route]", function (e) {
   changeRoute(route);
 
   // optional: close the menu after clicking a link
-  $("#top-nav-links").slideUp();
+  $(".links-container").slideUp();
 });
