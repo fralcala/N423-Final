@@ -1,11 +1,33 @@
 import "./scss/styles.scss";
 import $ from "jquery";
 
+// routes
 import * as Home from "./pages/home.js";
 import * as Profile from "./pages/profile.js";
 import * as Saved from "./pages/saved.js";
 import * as Search from "./pages/search.js";
 
+// signin/up
+import { auth, db } from "./firebase.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+// import {
+//   collection,
+//   addDoc,
+//   doc,
+//   updateDoc,
+//   onSnapshot,
+//   deleteDoc,
+// } from "firebase/firestore";
+
+//  //  //  //  //  //  //
+// // //  //  //  //  //
+
+// router
 const routes = {
   home: Home,
   profile: Profile,
@@ -13,8 +35,6 @@ const routes = {
   search: Search,
 };
 
-// //
-// router
 function changeRoute(routeName) {
   const page = routes[routeName];
 
@@ -49,7 +69,9 @@ $(document).ready(function () {
 
 window.changeRoute = changeRoute;
 
-// //
+// // //  //  //  //
+// // //  //  //  //
+
 // Toggle top nav
 $("#navToggle").on("click", function (e) {
   e.preventDefault();
@@ -66,3 +88,95 @@ $(".top-nav").on("click", "a[data-route]", function (e) {
   // optional: close the menu after clicking a link
   $(".links-container").slideUp();
 });
+
+// // //  //  //  //  //
+//  //  //  //  //  //  //
+// Signin/up & Database
+
+// const addDogForm = document.getElementById("addDogNameForm");
+// const dogNamesListDiv = document.querySelector(".dogsNames");
+
+// async function addDogNameToDB(dogName) {
+//   let dogObject = { name: dogName };
+//   await addDoc(collection(db, "dogs"), dogObject)
+//     .then((docRef) => {
+//       console.log("Document written with ID: ", docRef.id);
+//       addDogForm.reset();
+//     })
+//     .catch((error) => {
+//       console.error("Error adding document: ", error);
+//     });
+// }
+
+// onSnapshot(collection(db, "dogs"), (snapshot) => {
+//   dogNamesListDiv.innerHTML = "";
+//   let htmlString = "";
+
+//   snapshot.forEach((doc) => {
+//     console.log("Current data: ", doc.data().name);
+//     if (doc.data().name != undefined) {
+//       htmlString += `
+//     <div>
+//       <input value="${doc.data().name}" disabled />
+//       <button class="editButton" data-id="${doc.id}">Edit</button>
+//       <button class="deleteButton" data-id="${doc.id}">Delete</button>
+//     </div>
+//     `;
+//     }
+//   });
+//   dogNamesListDiv.innerHTML = htmlString;
+
+// const deleteButtons = document.querySelectorAll(".deleteButton");
+// deleteButtons.forEach((button) => {
+//   button.addEventListener("click", async (e) => {
+//     const id = e.target.getAttribute("data-id");
+//     console.log("Delete button clicked for ID:", id);
+//     await deleteDoc(doc(db, "dogs", id))
+//       .then(() => {
+//         console.log("Document successfully deleted!");
+//       })
+//       .catch((error) => {
+//         console.error("Error removing document: ", error);
+//       });
+//   });
+// });
+
+//   const editButtons = document.querySelectorAll(".editButton");
+//   editButtons.forEach((button) => {
+//     button.addEventListener("click", async (e) => {
+//       const id = e.target.getAttribute("data-id");
+//       const inputField = e.target.previousElementSibling;
+//       if (e.target.textContent === "Edit") {
+//         inputField.disabled = false;
+//         inputField.focus();
+//         e.target.textContent = "Save";
+//       } else {
+//         // Save logic here
+//         inputField.disabled = true;
+//         e.target.textContent = "Edit";
+//         const newName = inputField.value;
+//         console.log(
+//           "Save button clicked for ID:",
+//           id,
+//           "with new name:",
+//           newName
+//         );
+//         // Update the document in Firestore
+//         const docRef = doc(db, "dogs", id);
+//         await updateDoc(docRef, { name: newName })
+//           .then(() => {
+//             console.log("Document successfully updated!");
+//           })
+//           .catch((error) => {
+//             console.error("Error updating document: ", error);
+//           });
+//       }
+//     });
+//   });
+// });
+
+// addDogForm?.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   const dogName = document.getElementById("dogNameInput").value;
+//   addDogNameToDB(dogName);
+// });
