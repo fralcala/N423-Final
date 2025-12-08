@@ -9,27 +9,9 @@ import {
 
 export function render() {
   return `
+  <div class="profileHolder">
   <div class="signUpIn">
-    <h2>Signup Form</h2>
-    <form id="signupForm">
-      <label for="email">Email:</label>
-      <input
-        type="email"
-        id="signupEmail"
-        placeholder="Enter your email"
-        required
-      />
-      <label for="password">Password:</label>
-      <input
-        type="password"
-        id="signupPassword"
-        placeholder="Enter your password"
-        required
-      />
-      <button type="submit">Sign Up</button>
-    </form>
-
-    <h2>Login Form</h2>
+    <h2>Log In</h2>
     <form id="loginForm">
       <label for="email">Email:</label>
       <input
@@ -42,13 +24,34 @@ export function render() {
       <input
         type="password"
         id="loginPassword"
-        placeholder="Enter your password"
+        placeholder="Password"
         required
       />
       <button type="submit">Log In</button>
     </form>
+
+    <div class="divider">Don't have an account? Sign Up!</div>
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="signupEmail"
+        placeholder="Email"
+        required
+      />
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="signupPassword"
+        placeholder="Enter your password"
+        required
+      />
+      <button type="submit">Sign Up</button>
+    </form>
   </div>
   <button class="hidden" id="logoutButton">Log Out</button>
+  </div>
       `;
 }
 

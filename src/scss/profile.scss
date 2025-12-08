@@ -1,3 +1,75 @@
 .hidden {
-  visibility: hidden;
+  display: none;
+}
+
+.profileHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 25px;
+  padding-bottom: 95px;
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  #logoutButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #670e0e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "inter", sans-serif;
+    font-size: 20px;
+  }
+
+  .divider {
+    margin: 40px 0 20px 0;
+    color: #670e0e;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .signUpIn {
+    h2 {
+      font-family: "inter", sans-serif;
+      font-size: 20px;
+      font-weight: lighter;
+      color: #670e0e;
+    }
+
+    #signupForm,
+    #loginForm {
+      width: 308px;
+      display: flex;
+      flex-direction: column;
+      color: #670e0e;
+
+      input {
+        width: 100%;
+        height: 40px;
+        margin: 10px 0;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      button {
+        width: 100%;
+        height: 40px;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #670e0e;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "inter-regular", sans-serif;
+        font-size: 16px;
+      }
+    }
+  }
 }
