@@ -57,6 +57,7 @@ function getRecipe(id) {
 
 // For spoonacular API
 const apiKey = "01ad11f4f61b4811baead8409f960737";
+// get individual recipe from spoonacular here
 
 export function render() {
   return `
