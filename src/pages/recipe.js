@@ -45,7 +45,7 @@ function getRecipe(id) {
         <h2>${meal.strMeal}</h2>
 
         <div class="section">
-            <h3>Ingredients:/</h3>
+            <h3>Ingredients:</h3>
             ${ingredientsHTML}
         </div>
         

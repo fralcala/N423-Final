@@ -1,8 +1,7 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase.js"; // use the initialized auth
+import { onAuthStateChanged } from "firebase/auth";
 
 export let currentUser = null;
-
-const auth = getAuth();
 
 onAuthStateChanged(auth, (user) => {
   currentUser = user;

@@ -9,10 +9,9 @@
   .saved-list {
     display: flex;
     flex-wrap: wrap;
+    gap: 34px;
 
     .saved-recipe {
-      flex: 0 0 auto; /* don't grow or shrink; width by content */
-      width: 180px;
       text-align: center;
 
       h2 {

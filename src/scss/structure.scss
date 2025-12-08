@@ -173,6 +173,45 @@ h2 {
   #loginForm {
     width: 590px !important;
   }
+
+  .your-recipes-section img,
+  .featured-section img,
+  .saved-page img {
+    width: 205px !important;
+    height: 230px !important;
+  }
+
+  .featured-section {
+    height: 444px !important;
+  }
+
+  .result {
+    height: 236px !important;
+
+    img {
+      width: 318px !important;
+      height: 192px !important;
+    }
+  }
+  .recipe-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 20px 20px 20px;
+
+    .recipe-details {
+      margin: 0 auto;
+      width: 70% !important;
+      p {
+        line-height: 25px !important;
+      }
+    }
+  }
+}
+
+.recipe-content img {
+  height: 360px !important;
+  width: 70% !important;
 }
 @media screen and (max-width: 599px) {
   .top-nav {

@@ -1,4 +1,7 @@
 import $ from "jquery";
+import { currentUser } from "../authState.js";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase.js";
 
 // Spoonacular API
 const apiKey = "01ad11f4f61b4811baead8409f960737";
@@ -60,6 +63,41 @@ function getFeaturedRecipesTemp() {
   });
 }
 
+function loadYourRecipes() {
+  const container = $(".your-recipes-container");
+  if (!container.length) return;
+
+  const checkUser = setInterval(() => {
+    if (!currentUser) return;
+    clearInterval(checkUser);
+
+    const savedRef = collection(db, "users", currentUser.uid, "saved");
+
+    onSnapshot(savedRef, (snapshot) => {
+      container.empty();
+
+      if (snapshot.empty) {
+        container.html("<p>No saved recipes yet.</p>");
+        return;
+      }
+
+      const recipes = snapshot.docs.slice(0, 4);
+
+      recipes.forEach((docSnap) => {
+        const meal = docSnap.data();
+        container.append(`
+          <div class="saved-recipe">
+            <a href="#" data-route="recipe-${meal.idMeal}">
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+              <h2>${meal.strMeal}</h2>
+            </a>
+          </div>
+        `);
+      });
+    });
+  }, 100);
+}
+
 export function render() {
   return `
   <div class="featured-section">
@@ -77,4 +115,5 @@ export function render() {
 export function init() {
   // getFeaturedRecipes();
   getFeaturedRecipesTemp();
+  loadYourRecipes();
 }
