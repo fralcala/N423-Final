@@ -107,7 +107,7 @@ export function render() {
   
   <div class="your-recipes-section">
   <h1>Your Recipes</h1>
-  <div class="your-recipes-container"></div>
+  <div class="your-recipes-container"><p>No saved recipes yet.</p></div>
   </div>
   `;
 }

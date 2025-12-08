@@ -33,6 +33,7 @@ export function render() {
   <div class="saved-page">
     <h1>Your Recipes</h1>
     <div class="saved-list">
+    <p>No saved recipes yet.</p>
     </div>
   </div>
   `;
