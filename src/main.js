@@ -6,15 +6,8 @@ import * as Home from "./pages/home.js";
 import * as Profile from "./pages/profile.js";
 import * as Saved from "./pages/saved.js";
 import * as Search from "./pages/search.js";
+import * as Recipe from "./pages/recipe.js";
 
-// signin/up
-import { auth, db } from "./firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
 // import {
 //   collection,
 //   addDoc,
@@ -33,9 +26,26 @@ const routes = {
   profile: Profile,
   saved: Saved,
   search: Search,
+  recipe: Recipe,
 };
 
 function changeRoute(routeName) {
+  // For recipes
+  if (routeName.startsWith("recipe-")) {
+    const id = routeName.replace("recipe-", "");
+
+    // Render placeholder
+    $("#app").html(Recipe.render(id));
+
+    // Load real data
+    if (typeof Recipe.init === "function") {
+      Recipe.init(id);
+    }
+
+    window.location.hash = routeName;
+    return;
+  }
+
   const page = routes[routeName];
 
   if (!page || !page.render) {
@@ -56,9 +66,8 @@ function changeRoute(routeName) {
 }
 
 $(document).ready(function () {
-  // NAV CLICK HANDLER — VERY IMPORTANT
-  $("nav").on("click", "a[data-route]", function (e) {
-    e.preventDefault(); // stop page reload
+  $(document).on("click", "a[data-route]", function (e) {
+    e.preventDefault();
     const route = $(this).data("route");
     changeRoute(route);
   });

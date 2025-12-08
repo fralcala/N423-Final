@@ -55,7 +55,7 @@ export function render() {
 export function init() {
   console.log("Profile loaded");
 
-  // Signin/up & Database
+  // Signin/up
   const signUpIn = document.querySelector(".signUpIn");
   const logoutButton = document.getElementById("logoutButton");
   const loginForm = document.getElementById("loginForm");

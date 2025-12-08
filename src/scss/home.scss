@@ -17,6 +17,7 @@
     display: flex;
     gap: 38px;
 
+    overflow-x: auto;
     overflow-y: hidden; /* prevent vertical scroll */
     -webkit-overflow-scrolling: touch; /* smooth scrolling on mobile */
     padding: 0px 25px 36px 25px;
@@ -32,6 +33,12 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      a {
+        list-style: none;
+        text-decoration: none;
+        color: #fff;
       }
     }
   }

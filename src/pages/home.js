@@ -50,8 +50,9 @@ function getFeaturedRecipesTemp() {
 
         container.append(`
            <div class="featured">
-             <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
-           <h2>${meal.strMeal}</h2>
+              <a href="#" data-route="recipe-${meal.idMeal}">
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+              <h2>${meal.strMeal}</h2></a>
            </div>
          `);
       });
