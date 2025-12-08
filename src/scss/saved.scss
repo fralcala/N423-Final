@@ -1,0 +1,40 @@
+.saved-page {
+  background-color: #eddbc2;
+  padding: 25px 25px 95px 25px;
+
+  h1 {
+    color: #670e0e;
+  }
+
+  .saved-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .saved-recipe {
+      flex: 0 0 auto; /* don't grow or shrink; width by content */
+      width: 180px;
+      text-align: center;
+
+      h2 {
+        width: 160px;
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      a {
+        list-style: none;
+        text-decoration: none;
+        color: #670e0e;
+      }
+    }
+  }
+}
+.saved-page img {
+  width: 160px;
+  height: 180px;
+  object-fit: cover;
+  border: 3px solid #670e0e;
+  border-radius: 17px;
+}

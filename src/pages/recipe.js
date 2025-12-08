@@ -1,4 +1,14 @@
-import $, { get } from "jquery";
+import $ from "jquery";
+import { currentUser } from "../authState.js";
+import { db } from "../firebase.js";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  onSnapshot,
+  deleteDoc,
+} from "firebase/firestore";
 
 function getRecipe(id) {
   $.getJSON(
@@ -51,6 +61,12 @@ function getRecipe(id) {
       $("#backBtn").on("click", () => {
         changeRoute("home");
       });
+
+      $("#saveBtn")
+        .off()
+        .on("click", () => {
+          saveRecipeToSaved(meal);
+        });
     }
   );
 }
@@ -58,6 +74,26 @@ function getRecipe(id) {
 // For spoonacular API
 const apiKey = "01ad11f4f61b4811baead8409f960737";
 // get individual recipe from spoonacular here
+
+async function saveRecipeToSaved(meal) {
+  if (!currentUser) {
+    alert("You must be logged in to save recipes.");
+    return;
+  }
+
+  const recipeData = {
+    idMeal: meal.idMeal,
+    strMeal: meal.strMeal,
+    strMealThumb: meal.strMealThumb,
+  };
+
+  await setDoc(
+    doc(db, "users", currentUser.uid, "saved", meal.idMeal),
+    recipeData
+  );
+
+  alert("Recipe saved!");
+}
 
 export function render() {
   return `
@@ -75,5 +111,5 @@ export function render() {
 export function init(id) {
   console.log("recipe function called");
   getRecipe(id);
-  getRecipeTwo(id);
+  // getRecipeTwo(id);
 }
