@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $, { get } from "jquery";
 
 function getRecipe(id) {
   $.getJSON(
@@ -55,6 +55,9 @@ function getRecipe(id) {
   );
 }
 
+// For spoonacular API
+const apiKey = "01ad11f4f61b4811baead8409f960737";
+
 export function render() {
   return `
   <div class="recipe-page">
@@ -71,4 +74,5 @@ export function render() {
 export function init(id) {
   console.log("recipe function called");
   getRecipe(id);
+  getRecipeTwo(id);
 }
